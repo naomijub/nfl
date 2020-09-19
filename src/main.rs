@@ -19,7 +19,7 @@ async fn main() -> std::io::Result<()> {
             .configure(routes)
             .default_service(http_web::to(|| async { "404" }))
     })
-    .bind("127.0.0.1:4000")?
+    .bind("0.0.0.0:4000")?
     .run()
     .await
 }

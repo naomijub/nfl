@@ -17,6 +17,7 @@ juniper = "0.14.2"
 
 [dev-dependencies]
 criterion = "0.3"
+bytes = "0.5.3"
 
 [[bench]]
 name = "read_json"

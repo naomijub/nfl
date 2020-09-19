@@ -4,14 +4,15 @@ use actix_web::{web, Error, HttpResponse};
 use juniper::http::graphiql::graphiql_source;
 use juniper::http::GraphQLRequest;
 
-use crate::web::graphql_resolvers::{Resolver};
+use crate::web::{Container, graphql_resolvers::{Context}};
 
 pub async fn graphql(
-    resolvers: web::Data<Arc<Resolver>>,
+    container: web::Data<Arc<Container>>,
     data: web::Json<GraphQLRequest>,
 ) -> Result<HttpResponse, Error> {
+    let ctx = Context::new(Arc::new(container.context.clone()));
     let res = web::block(move || {
-        let res = data.execute(&resolvers, &());
+        let res = data.execute(&container.resolvers, &ctx);
         Ok::<_, serde_json::error::Error>(serde_json::to_string(&res)?)
     })
     .await

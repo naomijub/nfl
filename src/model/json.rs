@@ -1,10 +1,10 @@
+use juniper::GraphQLObject;
 use serde::Serialize;
 use serde_json::Value;
-use juniper::GraphQLObject;
 
 use crate::model::error::Error;
 
-#[derive(Debug, PartialEq, Clone,  Serialize, GraphQLObject)]
+#[derive(Debug, PartialEq, Clone, Serialize, GraphQLObject)]
 pub struct Player {
     #[serde(rename(serialize = "Name"))]
     pub name: String,

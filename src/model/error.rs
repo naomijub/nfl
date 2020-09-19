@@ -1,4 +1,4 @@
-use juniper::{FieldError, IntoFieldError, graphql_value};
+use juniper::{graphql_value, FieldError, IntoFieldError};
 
 #[derive(Debug)]
 pub enum Error {
@@ -53,6 +53,5 @@ impl IntoFieldError for Error {
                 }),
             ),
         }
-        
     }
 }

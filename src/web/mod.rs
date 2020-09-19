@@ -11,6 +11,6 @@ pub struct Container {
 
 impl Container {
     pub fn new(context: Vec<Player>, resolvers: Resolver) -> Self {
-        Container {context, resolvers}
+        Container { context, resolvers }
     }
 }

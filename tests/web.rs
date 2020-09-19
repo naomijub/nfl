@@ -1,15 +1,11 @@
-use nfl_rushing::web::{
-    routes::routes,
-};
 use actix_web::{test, App};
 use bytes::Bytes;
+use nfl_rushing::web::routes::routes;
 
 #[actix_rt::test]
 async fn test_ping_pong() {
     let container = test_data();
-    let mut app = test::init_service(
-        App::new().data(container.clone()).configure(routes)).await;
-
+    let mut app = test::init_service(App::new().data(container.clone()).configure(routes)).await;
 
     let req = test::TestRequest::post()
         .uri("/graphql")
@@ -24,9 +20,7 @@ async fn test_ping_pong() {
 #[actix_rt::test]
 async fn test_per_page_2_page_1() {
     let container = test_data();
-    let mut app = test::init_service(
-        App::new().data(container.clone()).configure(routes)).await;
-
+    let mut app = test::init_service(App::new().data(container.clone()).configure(routes)).await;
 
     let req = test::TestRequest::post()
         .uri("/graphql")
@@ -41,9 +35,7 @@ async fn test_per_page_2_page_1() {
 #[actix_rt::test]
 async fn test_per_page_3_page_0() {
     let container = test_data();
-    let mut app = test::init_service(
-        App::new().data(container.clone()).configure(routes)).await;
-
+    let mut app = test::init_service(App::new().data(container.clone()).configure(routes)).await;
 
     let req = test::TestRequest::post()
         .uri("/graphql")
@@ -55,21 +47,15 @@ async fn test_per_page_3_page_0() {
     assert_eq!(resp, Bytes::from_static(response_per_page_3_page_0()));
 }
 
-
-use nfl_rushing::web::{
-    Container,
-    graphql_resolvers::{create_resolver}
-};
 use nfl_rushing::reader::read_json;
+use nfl_rushing::web::{graphql_resolvers::create_resolver, Container};
 use std::sync::Arc;
 
 pub fn test_data() -> Arc<Container> {
     let resolvers = create_resolver();
-    let json = 
-        read_json("rushing.json").expect("Failed to init project");
+    let json = read_json("rushing.json").expect("Failed to init project");
 
     std::sync::Arc::new(Container::new(json, resolvers))
-
 }
 
 fn query_per_page_2_page_1() -> &'static str {

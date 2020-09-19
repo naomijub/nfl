@@ -4,7 +4,7 @@ use actix_web::{web, Error, HttpResponse};
 use juniper::http::graphiql::graphiql_source;
 use juniper::http::GraphQLRequest;
 
-use crate::web::{Container, graphql_resolvers::{Context}};
+use crate::web::{graphql_resolvers::Context, Container};
 
 pub async fn graphql(
     container: web::Data<Arc<Container>>,

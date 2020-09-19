@@ -46,4 +46,15 @@ We will evaluate you on your ability to solve the problem defined in the require
 # NFL Rushing Challange
 
 ## Installation and running this solution
-... TODO
+
+### Tests
+To run tests just execute `cargo test`.
+
+### Benchmarks
+Benchmarks are done via `criterion = "0.3"` and can be obtained by `cargo bench`.
+
+**read_json** microbenchmark:
+```
+rushing.json   time:   [2.2553 ms 2.2586 ms 2.2622 ms]
+```
+

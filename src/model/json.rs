@@ -3,47 +3,47 @@ use serde_json::Value;
 
 use crate::error::Error;
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, PartialEq, Serialize)]
 pub struct Player {
     #[serde(rename(serialize = "Name"))]
-    name: String,
+    pub name: String,
     #[serde(rename(serialize = "Team"))]
-    team: String,
+    pub team: String,
     #[serde(rename(serialize = "Position"))]
-    position: String,
+    pub position: String,
     #[serde(rename(serialize = "Rushing Attempts Per Game Average"))]
-    avg_attempts_per_game: f64,
+    pub avg_attempts_per_game: f64,
     #[serde(rename(serialize = "Rushing Attempts"))]
-    attemps: u64,
+    pub attemps: u64,
     #[serde(rename(serialize = "Total Rushing Yards"))]
-    total_rushing_yards: i64,
+    pub total_rushing_yards: i64,
     #[serde(rename(serialize = "Rushing Average Yards Per Attempt"))]
-    average_rushing_yards_per_attemp: f64,
+    pub average_rushing_yards_per_attemp: f64,
     #[serde(rename(serialize = "Rushing Yards Per Game"))]
-    rushing_yards_per_game: f64,
+    pub rushing_yards_per_game: f64,
     #[serde(rename(serialize = "Total Rushing Touchdowns"))]
-    total_rushing_touchdowns: u64,
+    pub total_rushing_touchdowns: u64,
     #[serde(rename(serialize = "Longest Rush"))]
-    largest_rust: String,
+    pub largest_rust: String,
     #[serde(rename(serialize = "Rushing First Downs"))]
-    rushing_first_downs: f64,
+    pub rushing_first_downs: f64,
     #[serde(rename(serialize = "Rushing First Down Percentage"))]
-    rushing_first_downs_percentage: f64,
+    pub rushing_first_downs_percentage: f64,
     #[serde(rename(serialize = "Rushing 20+ Yards Each"))]
-    rushing_20_yards: f64,
+    pub rushing_20_yards: f64,
     #[serde(rename(serialize = "Rushing 40+ Yards Each"))]
-    rushing_40_yards: f64,
+    pub rushing_40_yards: f64,
     #[serde(rename(serialize = "Rushing Fumbles"))]
-    rushing_fumbles: u64,
+    pub rushing_fumbles: u64,
 }
 
 impl Player {
     pub fn from_value(object: &Value) -> Result<Self, Error> {
         if let Value::Object(obj) = object {
             Ok(Player {
-                name: obj["Player"].to_string(),
-                team: obj["Team"].to_string(),
-                position: obj["Pos"].to_string(),
+                name: obj["Player"].as_str().unwrap().to_string(),
+                team: obj["Team"].as_str().unwrap().to_string(),
+                position: obj["Pos"].as_str().unwrap().to_string(),
                 avg_attempts_per_game: match &obj["Att/G"] {
                     Value::Number(n) if n.is_f64() => n.as_f64().unwrap(),
                     Value::Number(n) => n.to_string().parse::<f64>().unwrap(),
@@ -80,7 +80,7 @@ impl Player {
                     Value::String(n) => n.replace(",", "").parse::<u64>().unwrap(),
                     _ => return Err(Error::AttributeParseError("TD".to_string())),
                 },
-                largest_rust: obj["Lng"].to_string(),
+                largest_rust: obj["Lng"].as_str().unwrap().to_string(),
                 rushing_first_downs: match &obj["1st"] {
                     Value::Number(n) if n.is_f64() => n.as_f64().unwrap(),
                     Value::Number(n) => n.to_string().parse::<f64>().unwrap(),

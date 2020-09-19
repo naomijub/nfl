@@ -2,7 +2,7 @@
 pub enum Error {
     JsonReaderError,
     LoadDataError(String),
-    AttributeParseError(String)
+    AttributeParseError(String),
 }
 
 impl std::fmt::Display for Error {
@@ -20,7 +20,7 @@ impl std::error::Error for Error {
         match self {
             Error::JsonReaderError => "Could not read Json data",
             Error::LoadDataError(_) => "Data could not be loaded",
-            Error::AttributeParseError(_) => "Could not parse Json attribute"
+            Error::AttributeParseError(_) => "Could not parse Json attribute",
         }
     }
 

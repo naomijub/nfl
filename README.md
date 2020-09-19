@@ -1,17 +1,6 @@
-# theScore "the Rush" Interview Challenge
-At theScore, we are always looking for intelligent, resourceful, full-stack developers to join our growing team. To help us evaluate new talent, we have created this take-home interview question. This question should take you no more than a few hours.
+# NFL Rushing Challange
 
-**All candidates must complete this before the possibility of an in-person interview. During the in-person interview, your submitted project will be used as the base for further extensions.**
-
-### Why a take-home challenge?
-In-person coding interviews can be stressful and can hide some people's full potential. A take-home gives you a chance work in a less stressful environment and showcase your talent.
-
-We want you to be at your best and most comfortable.
-
-### A bit about our tech stack
-As outlined in our job description, you will come across technologies which include a server-side web framework (like Elixir/Phoenix, Ruby on Rails or a modern Javascript framework) and a front-end Javascript framework (like ReactJS)
-
-### Challenge Background
+## Challenge Background
 We have sets of records representing football players' rushing statistics. All records have the following attributes:
 * `Player` (Player's name)
 * `Team` (Player's team abbreviation)
@@ -31,7 +20,9 @@ We have sets of records representing football players' rushing statistics. All r
 
 In this repo is a sample data file [`rushing.json`](/rushing.json).
 
-##### Challenge Requirements
+# NFL Rushing Challange
+
+#### Challenge Requirements
 1. Create a web app. This must be able to do the following steps
     1. Create a webpage which displays a table with the contents of [`rushing.json`](/rushing.json)
     2. The user should be able to sort the players by _Total Rushing Yards_, _Longest Rush_ and _Total Rushing Touchdowns_
@@ -42,7 +33,9 @@ In this repo is a sample data file [`rushing.json`](/rushing.json).
 
 3. Update the section `Installation and running this solution` in the README file explaining how to run your code
 
-### Submitting a solution
+# NFL Rushing Challange
+
+## Submitting a solution
 1. Download this repo
 2. Complete the problem outlined in the `Requirements` section
 3. In your personal public GitHub repo, create a new public repo with this implementation
@@ -50,8 +43,7 @@ In this repo is a sample data file [`rushing.json`](/rushing.json).
 
 We will evaluate you on your ability to solve the problem defined in the requirements section as well as your choice of frameworks, and general coding style.
 
-### Help
-If you have any questions regarding requirements, do not hesitate to email your contact at theScore for clarification.
+# NFL Rushing Challange
 
-### Installation and running this solution
+## Installation and running this solution
 ... TODO

@@ -25,7 +25,7 @@ pub struct Player {
     #[serde(rename(serialize = "Total Rushing Touchdowns"))]
     pub total_rushing_touchdowns: i32,
     #[serde(rename(serialize = "Longest Rush"))]
-    pub largest_rush: String,
+    pub longest_rush: String,
     #[serde(rename(serialize = "Rushing First Downs"))]
     pub rushing_first_downs: f64,
     #[serde(rename(serialize = "Rushing First Down Percentage"))]
@@ -81,7 +81,7 @@ impl Player {
                     Value::String(n) => n.replace(",", "").parse::<i32>().unwrap(),
                     _ => return Err(Error::AttributeParseError("TD".to_string())),
                 },
-                largest_rush: obj["Lng"].as_str().unwrap_or("").to_string(),
+                longest_rush: obj["Lng"].as_str().unwrap_or("-1").to_string(),
                 rushing_first_downs: match &obj["1st"] {
                     Value::Number(n) if n.is_f64() => n.as_f64().unwrap(),
                     Value::Number(n) => n.to_string().parse::<f64>().unwrap(),
@@ -115,6 +115,18 @@ impl Player {
             })
         } else {
             Err(Error::JsonReaderError)
+        }
+    }
+
+    pub fn longest_rush(&self) -> i64 {
+        let td = self.longest_rush.clone();
+
+        if td.contains('T') {
+            let new_td = td.replace("T", "");
+            let td_val = new_td.parse::<i64>().unwrap();
+            td_val + 100
+        } else {
+            td.parse::<i64>().unwrap()
         }
     }
 }

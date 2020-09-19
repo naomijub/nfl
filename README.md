@@ -20,8 +20,6 @@ We have sets of records representing football players' rushing statistics. All r
 
 In this repo is a sample data file [`rushing.json`](/rushing.json).
 
-# NFL Rushing Challange
-
 #### Challenge Requirements
 1. Create a web app. This must be able to do the following steps
     1. Create a webpage which displays a table with the contents of [`rushing.json`](/rushing.json)
@@ -33,19 +31,11 @@ In this repo is a sample data file [`rushing.json`](/rushing.json).
 
 3. Update the section `Installation and running this solution` in the README file explaining how to run your code
 
-# NFL Rushing Challange
-
-## Submitting a solution
-1. Download this repo
-2. Complete the problem outlined in the `Requirements` section
-3. In your personal public GitHub repo, create a new public repo with this implementation
-4. Provide this link to your contact at theScore
-
-We will evaluate you on your ability to solve the problem defined in the requirements section as well as your choice of frameworks, and general coding style.
-
-# NFL Rushing Challange
 
 ## Installation and running this solution
+
+## Conderations
+* For sorting `Longest Rush`, I considered a touchdown a bonus of 100 points.
 
 ### Tests
 To run tests just execute `cargo test`.

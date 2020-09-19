@@ -13,7 +13,7 @@ fn read_json_can_read_file_to_vec_player() {
         average_rushing_yards_per_attemp: 7.2f64,
         rushing_yards_per_game: 2.9f64,
         total_rushing_touchdowns: 0i32,
-        largest_rush: String::from("29"),
+        longest_rush: String::from("29"),
         rushing_first_downs: 2f64,
         rushing_first_downs_percentage: 33.3f64,
         rushing_20_yards: 1f64,

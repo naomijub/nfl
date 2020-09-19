@@ -8,17 +8,17 @@ fn read_json_can_read_file_to_vec_player() {
         team: String::from("OAK"),
         position: String::from("WR"),
         avg_attempts_per_game: 0.4f64,
-        attemps: 6u64,
-        total_rushing_yards: 43i64,
+        attemps: 6i32,
+        total_rushing_yards: 43i32,
         average_rushing_yards_per_attemp: 7.2f64,
         rushing_yards_per_game: 2.9f64,
-        total_rushing_touchdowns: 0u64,
+        total_rushing_touchdowns: 0i32,
         largest_rust: String::from("29"),
         rushing_first_downs: 2f64,
         rushing_first_downs_percentage: 33.3f64,
         rushing_20_yards: 1f64,
         rushing_40_yards: 0f64,
-        rushing_fumbles: 100000u64,
+        rushing_fumbles: 100000i32,
     }];
 
     assert_eq!(actual, expected);

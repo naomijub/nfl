@@ -1,9 +1,10 @@
 use serde::Serialize;
 use serde_json::Value;
+use juniper::GraphQLObject;
 
-use crate::error::Error;
+use crate::model::error::Error;
 
-#[derive(Debug, PartialEq, Serialize)]
+#[derive(Debug, PartialEq, Serialize, GraphQLObject)]
 pub struct Player {
     #[serde(rename(serialize = "Name"))]
     pub name: String,
@@ -14,15 +15,15 @@ pub struct Player {
     #[serde(rename(serialize = "Rushing Attempts Per Game Average"))]
     pub avg_attempts_per_game: f64,
     #[serde(rename(serialize = "Rushing Attempts"))]
-    pub attemps: u64,
+    pub attemps: i32,
     #[serde(rename(serialize = "Total Rushing Yards"))]
-    pub total_rushing_yards: i64,
+    pub total_rushing_yards: i32,
     #[serde(rename(serialize = "Rushing Average Yards Per Attempt"))]
     pub average_rushing_yards_per_attemp: f64,
     #[serde(rename(serialize = "Rushing Yards Per Game"))]
     pub rushing_yards_per_game: f64,
     #[serde(rename(serialize = "Total Rushing Touchdowns"))]
-    pub total_rushing_touchdowns: u64,
+    pub total_rushing_touchdowns: i32,
     #[serde(rename(serialize = "Longest Rush"))]
     pub largest_rust: String,
     #[serde(rename(serialize = "Rushing First Downs"))]
@@ -34,7 +35,7 @@ pub struct Player {
     #[serde(rename(serialize = "Rushing 40+ Yards Each"))]
     pub rushing_40_yards: f64,
     #[serde(rename(serialize = "Rushing Fumbles"))]
-    pub rushing_fumbles: u64,
+    pub rushing_fumbles: i32,
 }
 
 impl Player {
@@ -51,15 +52,15 @@ impl Player {
                     _ => return Err(Error::AttributeParseError("Att/G".to_string())),
                 },
                 attemps: match &obj["Att"] {
-                    Value::Number(n) if n.is_u64() => n.as_u64().unwrap(),
-                    Value::Number(n) => n.to_string().parse::<u64>().unwrap(),
-                    Value::String(n) => n.replace(",", "").parse::<u64>().unwrap(),
+                    Value::Number(n) if n.is_i64() => n.as_i64().unwrap() as i32,
+                    Value::Number(n) => n.to_string().parse::<i32>().unwrap(),
+                    Value::String(n) => n.replace(",", "").parse::<i32>().unwrap(),
                     _ => return Err(Error::AttributeParseError("Att".to_string())),
                 },
                 total_rushing_yards: match &obj["Yds"] {
-                    Value::Number(n) if n.is_i64() => n.as_i64().unwrap(),
-                    Value::Number(n) => n.to_string().parse::<i64>().unwrap(),
-                    Value::String(n) => n.replace(",", "").parse::<i64>().unwrap(),
+                    Value::Number(n) if n.is_i64() => n.as_i64().unwrap() as i32,
+                    Value::Number(n) => n.to_string().parse::<i32>().unwrap(),
+                    Value::String(n) => n.replace(",", "").parse::<i32>().unwrap(),
                     _ => return Err(Error::AttributeParseError("Yds".to_string())),
                 },
                 average_rushing_yards_per_attemp: match &obj["Avg"] {
@@ -75,9 +76,9 @@ impl Player {
                     _ => return Err(Error::AttributeParseError("Yds/G".to_string())),
                 },
                 total_rushing_touchdowns: match &obj["TD"] {
-                    Value::Number(n) if n.is_u64() => n.as_u64().unwrap(),
-                    Value::Number(n) => n.to_string().parse::<u64>().unwrap(),
-                    Value::String(n) => n.replace(",", "").parse::<u64>().unwrap(),
+                    Value::Number(n) if n.is_u64() => n.as_i64().unwrap() as i32,
+                    Value::Number(n) => n.to_string().parse::<i32>().unwrap(),
+                    Value::String(n) => n.replace(",", "").parse::<i32>().unwrap(),
                     _ => return Err(Error::AttributeParseError("TD".to_string())),
                 },
                 largest_rust: obj["Lng"].as_str().unwrap().to_string(),
@@ -106,9 +107,9 @@ impl Player {
                     _ => return Err(Error::AttributeParseError("40+".to_string())),
                 },
                 rushing_fumbles: match &obj["FUM"] {
-                    Value::Number(n) if n.is_u64() => n.as_u64().unwrap(),
-                    Value::Number(n) => n.to_string().parse::<u64>().unwrap(),
-                    Value::String(n) => n.replace(",", "").parse::<u64>().unwrap(),
+                    Value::Number(n) if n.is_u64() => n.as_i64().unwrap() as i32,
+                    Value::Number(n) => n.to_string().parse::<i32>().unwrap(),
+                    Value::String(n) => n.replace(",", "").parse::<i32>().unwrap(),
                     _ => return Err(Error::AttributeParseError("FUM".to_string())),
                 },
             })

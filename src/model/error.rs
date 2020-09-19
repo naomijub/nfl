@@ -1,3 +1,5 @@
+use juniper::{FieldError, IntoFieldError, graphql_value};
+
 #[derive(Debug)]
 pub enum Error {
     JsonReaderError,
@@ -26,5 +28,31 @@ impl std::error::Error for Error {
 
     fn cause(&self) -> Option<&dyn std::error::Error> {
         Some(self)
+    }
+}
+
+impl IntoFieldError for Error {
+    fn into_field_error(self) -> FieldError {
+        match self {
+            Error::JsonReaderError => FieldError::new(
+                "Could not read Json data",
+                graphql_value!({
+                    "type": "JSON READER ERROR"
+                }),
+            ),
+            Error::LoadDataError(err) => FieldError::new(
+                &format!("Data could not be loaded due to {}", err),
+                graphql_value!({
+                    "type": "LOAD DATA ERROR"
+                }),
+            ),
+            Error::AttributeParseError(att) => FieldError::new(
+                &format!("Could not parse Json attribute {}", att),
+                graphql_value!({
+                    "type": "ATTRIBUTE PARSE ERROR"
+                }),
+            ),
+        }
+        
     }
 }

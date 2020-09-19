@@ -3,8 +3,10 @@ use serde_json::{Result as JsonResult, Value};
 use std::fs::File;
 use std::io::{self, BufReader};
 
-use crate::error::Error;
-use crate::model::json::Player;
+use crate::model::{
+    json::Player,
+    error::Error
+};
 
 pub fn read_json(path: &str) -> Result<Vec<Player>, Error> {
     let file = File::open(path)?;

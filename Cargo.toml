@@ -1,0 +1,20 @@
+[package]
+name = "nfl-rushing"
+version = "0.1.0"
+authors = ["Julia Naomi <jnboeira@outlook.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serde = {version = "*", features = ["derive"]}
+serde_derive = "*"
+serde_json = "*"
+rayon = "*"
+
+[dev-dependencies]
+criterion = "0.3"
+
+[[bench]]
+name = "read_json"
+harness = false

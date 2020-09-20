@@ -11,7 +11,7 @@ class SortedPlayers extends StatefulWidget {
 }
 
 class _SortedPlayersState extends State<SortedPlayers> {
-  Future<String> queryResponse;
+  Future<Map<String, Map<String, List<Map<String, dynamic>>>>> queryResponse;
 
   @override
   void initState() {
@@ -25,11 +25,12 @@ class _SortedPlayersState extends State<SortedPlayers> {
     return Container(
       child: NflScaffold(
         title: 'Sorted Players',
-        body: FutureBuilder<String>(
+        body:
+            FutureBuilder<Map<String, Map<String, List<Map<String, dynamic>>>>>(
           future: queryResponse,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Text(snapshot.data.toString());
+              return Text(snapshot.data['data']['sortPlayers'].toString());
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: Column(

@@ -7,6 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:frontend/Screens/select_fields.dart';
 
 import 'package:frontend/main.dart';
 
@@ -20,17 +21,13 @@ void main() {
     expect(find.text('Not Valid'), findsNothing);
   });
 
-//   Test seems to have been failing in flutter web, worked in mobile version
-//   testWidgets('navigates to selected fields', (WidgetTester tester) async {
-//     await tester.pumpWidget(NflApp());
+  testWidgets('Selected fields', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: SelectFields()));
 
-//     await tester.enterText(find.byKey(Key('perPage')), '3');
-//     await tester.enterText(find.byKey(Key('page')), '1');
-//     await tester.enterText(find.byKey(Key('name')), 'Joe');
+    expect(find.byKey(Key('checkbox')), findsWidgets);
+    expect(find.byKey(Key('proceed')), findsNothing);
 
-//     await tester.press(find.byKey(Key('proceed')));
-//     await tester.pumpAndSettle();
-
-//     expect(find.byKey(Key('checkbox')), findsWidgets);
-//   });
+    await tester.press(find.byKey(Key('checkbox')).first);
+    await tester.pumpAndSettle();
+  });
 }

@@ -83,6 +83,7 @@ class _SelectFieldsState extends State<SelectFields> {
                 child: SizedBox(
                   width: double.maxFinite,
                   child: RaisedButton(
+                    key: Key('proceed'),
                     disabledColor: Colors.grey,
                     textColor: Colors.white,
                     color: Colors.blue,

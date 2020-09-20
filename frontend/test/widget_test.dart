@@ -17,7 +17,7 @@ void main() {
 
     expect(find.text('Players per Page'), findsOneWidget);
     expect(find.text('Pagination'), findsOneWidget);
-    expect(find.text('Player Name'), findsOneWidget);
+    expect(find.text('Player Name (Optional)'), findsOneWidget);
     expect(find.text('Not Valid'), findsNothing);
   });
 

@@ -17,6 +17,7 @@ class NflScaffold extends StatelessWidget {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.orange[100]),
         centerTitle: true,
+        backgroundColor: Colors.orange[700],
         title: Text(
           title,
           style: TextStyle(

@@ -24,8 +24,8 @@ class LabelCheckbox extends StatelessWidget {
               text: TextSpan(
                 text: label,
                 style: TextStyle(
-                  color: Colors.blueGrey,
-                  fontSize: 18,
+                  color: Colors.red[900],
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
                 recognizer: null,
@@ -35,6 +35,8 @@ class LabelCheckbox extends StatelessWidget {
           Checkbox(
             key: Key('checkbox'),
             value: value,
+            activeColor: Colors.white,
+            checkColor: Colors.red[900],
             onChanged: (bool newValue) {
               onChanged(newValue);
             },

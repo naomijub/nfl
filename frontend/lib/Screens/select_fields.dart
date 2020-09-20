@@ -60,7 +60,7 @@ class _SelectFieldsState extends State<SelectFields> {
           child: ListView(
             children: [
               SizedBox(
-                height: 500,
+                height: 660,
                 child: ListView.builder(
                   itemCount: 15,
                   itemBuilder: (BuildContext context, int index) {
@@ -80,8 +80,9 @@ class _SelectFieldsState extends State<SelectFields> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 1.0),
+                padding: const EdgeInsets.only(top: 3.0),
                 child: SizedBox(
+                  height: 50,
                   width: double.maxFinite,
                   child: RaisedButton(
                     key: Key('proceed'),
@@ -89,8 +90,8 @@ class _SelectFieldsState extends State<SelectFields> {
                     textColor: Colors.white,
                     color: Colors.blue,
                     child: InfoBloc.name.isNotEmpty
-                        ? Text('Search')
-                        : Text('Proceed'),
+                        ? Text('Search', style: TextStyle(fontSize: 20))
+                        : Text('Proceed', style: TextStyle(fontSize: 20)),
                     onPressed: _areSelected.any((e) => e == true)
                         ? () {
                             final queryFields = zip([options, _areSelected])

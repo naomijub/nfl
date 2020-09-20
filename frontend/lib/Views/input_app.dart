@@ -79,13 +79,17 @@ class _InputAppState extends State<InputApp> {
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
                 child: SizedBox(
+                  height: 50,
                   width: double.maxFinite,
                   child: RaisedButton(
                     key: Key('proceed'),
                     disabledColor: Colors.grey,
                     textColor: Colors.white,
                     color: Colors.blue,
-                    child: Text('Proceed'),
+                    child: Text(
+                      'Proceed',
+                      style: TextStyle(fontSize: 20),
+                    ),
                     onPressed: () {
                       final String name = _nameController.text;
                       final int page = int.parse(_pageController.text);

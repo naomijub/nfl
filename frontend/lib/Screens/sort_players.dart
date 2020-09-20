@@ -24,155 +24,153 @@ class _SortPlayersState extends State<SortPlayers> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListView(
+              padding: EdgeInsets.all(4),
               children: [
-                Container(
-                  child: SizedBox(
-                    width: 480,
-                    child: Row(
-                      children: [
-                        Column(
-                          key: Key('sortBy'),
-                          children: [
-                            Text(
-                              'Sort Players By',
-                              style:
-                                  TextStyle(color: Colors.blue, fontSize: 24),
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'None',
-                                  style: TextStyle(
-                                      color: Colors.blue[900], fontSize: 18),
-                                ),
-                                Radio(
-                                  key: Key('None'),
-                                  value: SortBy.None,
-                                  activeColor: Colors.red[900],
-                                  groupValue: _sort,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      _sort = newValue;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Longest Rush',
-                                  style: TextStyle(
-                                      color: Colors.blue[900], fontSize: 18),
-                                ),
-                                Radio(
-                                  key: Key('LR'),
-                                  value: SortBy.LONGEST_RUSH,
-                                  activeColor: Colors.red[900],
-                                  groupValue: _sort,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      _sort = newValue;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Total Rushing Touchdowns',
-                                  style: TextStyle(
-                                      color: Colors.blue[900], fontSize: 18),
-                                ),
-                                Radio(
-                                  key: Key('TRT'),
-                                  value: SortBy.TOTAL_RUSHING_TOUCHDOWNS,
-                                  activeColor: Colors.red[900],
-                                  groupValue: _sort,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      _sort = newValue;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Total Rushing Yards',
-                                  style: TextStyle(
-                                      color: Colors.blue[900], fontSize: 18),
-                                ),
-                                Radio(
-                                  key: Key('TRY'),
-                                  value: SortBy.TOTAL_RUSHING_YARDS,
-                                  activeColor: Colors.red[900],
-                                  groupValue: _sort,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      _sort = newValue;
-                                    });
-                                  },
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                        Column(
-                          key: Key('order'),
-                          children: [
-                            Text(
-                              'Order Players',
-                              style:
-                                  TextStyle(color: Colors.blue, fontSize: 24),
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Asc',
-                                  style: TextStyle(
-                                      color: Colors.blue[900], fontSize: 18),
-                                ),
-                                Radio(
-                                  key: Key('asc'),
-                                  value: Order.ASC,
-                                  activeColor: Colors.red[900],
-                                  groupValue: _order,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      _order = newValue;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Desc',
-                                  style: TextStyle(
-                                      color: Colors.blue[900], fontSize: 18),
-                                ),
-                                Radio(
-                                  key: Key('desc'),
-                                  value: Order.DESC,
-                                  activeColor: Colors.red[900],
-                                  groupValue: _order,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      _order = newValue;
-                                    });
-                                  },
-                                ),
-                              ],
-                            )
-                          ],
-                        )
-                      ],
+                Text(
+                  'Sort Players By',
+                  style: TextStyle(color: Colors.blue, fontSize: 24),
+                ),
+                Divider(
+                  height: 1,
+                  thickness: 2,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Radio(
+                      key: Key('None'),
+                      value: SortBy.None,
+                      activeColor: Colors.red[900],
+                      groupValue: _sort,
+                      onChanged: (newValue) {
+                        setState(() {
+                          _sort = newValue;
+                        });
+                      },
                     ),
-                  ),
+                    Expanded(
+                      child: Text(
+                        'No Sorting',
+                        style: TextStyle(color: Colors.indigo, fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Radio(
+                      key: Key('LR'),
+                      value: SortBy.LONGEST_RUSH,
+                      activeColor: Colors.red[900],
+                      groupValue: _sort,
+                      onChanged: (newValue) {
+                        setState(() {
+                          _sort = newValue;
+                        });
+                      },
+                    ),
+                    Expanded(
+                      child: Text(
+                        'Longest Rush',
+                        style: TextStyle(color: Colors.indigo, fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Radio(
+                      key: Key('TRT'),
+                      value: SortBy.TOTAL_RUSHING_TOUCHDOWNS,
+                      activeColor: Colors.red[900],
+                      groupValue: _sort,
+                      onChanged: (newValue) {
+                        setState(() {
+                          _sort = newValue;
+                        });
+                      },
+                    ),
+                    Expanded(
+                      child: Text(
+                        'Total Rushing Touchdowns',
+                        style: TextStyle(color: Colors.indigo, fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Radio(
+                      key: Key('TRY'),
+                      value: SortBy.TOTAL_RUSHING_YARDS,
+                      activeColor: Colors.red[900],
+                      groupValue: _sort,
+                      onChanged: (newValue) {
+                        setState(() {
+                          _sort = newValue;
+                        });
+                      },
+                    ),
+                    Expanded(
+                      child: Text(
+                        'Total Rushing Yards',
+                        style: TextStyle(color: Colors.indigo, fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
+                Divider(
+                  height: 8,
+                ),
+                Text(
+                  'Order Players',
+                  style: TextStyle(color: Colors.blue, fontSize: 24),
+                ),
+                Divider(
+                  height: 1,
+                  thickness: 2,
+                ),
+                Row(
+                  children: [
+                    Radio(
+                      key: Key('asc'),
+                      value: Order.ASC,
+                      activeColor: Colors.red[900],
+                      groupValue: _order,
+                      onChanged: (newValue) {
+                        setState(() {
+                          _order = newValue;
+                        });
+                      },
+                    ),
+                    Expanded(
+                      child: Text(
+                        'Asc Order',
+                        style: TextStyle(color: Colors.indigo, fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Radio(
+                      key: Key('desc'),
+                      value: Order.DESC,
+                      activeColor: Colors.red[900],
+                      groupValue: _order,
+                      onChanged: (newValue) {
+                        setState(() {
+                          _order = newValue;
+                        });
+                      },
+                    ),
+                    Expanded(
+                      child: Text(
+                        'Desc Order',
+                        style: TextStyle(color: Colors.indigo, fontSize: 18),
+                      ),
+                    ),
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),

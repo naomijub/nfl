@@ -6,6 +6,7 @@ class InfoBloc extends ChangeNotifier {
   static int page = 0;
   static int perPage = 10;
   static String name = '';
+  static List<String> queryFields = new List();
 
   static InfoBloc of(BuildContext context, {bool listen = true}) =>
       Provider.of<InfoBloc>(context, listen: listen);
@@ -19,5 +20,9 @@ class InfoBloc extends ChangeNotifier {
     page = _page;
     perPage = _perPage;
     name = _name;
+  }
+
+  static String getQueryFieldsStr() {
+    return queryFields.join(', ');
   }
 }

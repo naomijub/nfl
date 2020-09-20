@@ -43,7 +43,7 @@ class _InputAppState extends State<InputApp> {
               controller: _pageController,
               keyboardType: TextInputType.number,
               inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly
+                FilteringTextInputFormatter.digitsOnly,
               ],
               decoration: InputDecoration(
                 labelText: 'Pagination',
@@ -57,7 +57,7 @@ class _InputAppState extends State<InputApp> {
               controller: _nameController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                labelText: 'Player Name',
+                labelText: 'Player Name (Optional)',
               ),
               style: TextStyle(
                 fontSize: 24.0,

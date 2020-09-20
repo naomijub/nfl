@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/players_by_name.dart';
+import 'package:frontend/Screens/sort_players.dart';
 import 'package:frontend/Views/nfl_scaffold.dart';
 import 'package:frontend/bloc/info_bloc.dart';
 import 'package:frontend/components/label_checkbox.dart';
@@ -59,13 +60,13 @@ class _SelectFieldsState extends State<SelectFields> {
           child: ListView(
             children: [
               SizedBox(
-                height: 800,
+                height: 500,
                 child: ListView.builder(
                   itemCount: 15,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       child: LabelCheckbox(
-                        padding: const EdgeInsets.all(4),
+                        padding: const EdgeInsets.all(2),
                         label: options[index],
                         value: _areSelected[index],
                         onChanged: (bool newValue) {
@@ -79,7 +80,7 @@ class _SelectFieldsState extends State<SelectFields> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 16.0),
+                padding: const EdgeInsets.only(top: 1.0),
                 child: SizedBox(
                   width: double.maxFinite,
                   child: RaisedButton(
@@ -92,17 +93,25 @@ class _SelectFieldsState extends State<SelectFields> {
                         : Text('Proceed'),
                     onPressed: _areSelected.any((e) => e == true)
                         ? () {
-                            final searchValues = zip([options, _areSelected])
+                            final queryFields = zip([options, _areSelected])
                                 .where((e) => e[1])
                                 .map((e) => e[0])
                                 .toList();
+                            InfoBloc.queryFields = queryFields;
 
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    PlayersByName(searchValues: searchValues),
-                              ),
-                            );
+                            if (InfoBloc.name.isEmpty) {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => SortPlayers(),
+                                ),
+                              );
+                            } else {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => PlayersByName(),
+                                ),
+                              );
+                            }
                           }
                         : null,
                   ),

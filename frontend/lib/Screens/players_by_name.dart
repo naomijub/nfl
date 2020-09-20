@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Views/nfl_scaffold.dart';
+import 'package:frontend/bloc/info_bloc.dart';
 import 'package:frontend/repository/http.dart';
 
 class PlayersByName extends StatefulWidget {
-  PlayersByName({Key key, this.searchValues}) : super(key: key);
-  final List<String> searchValues;
+  PlayersByName({Key key}) : super(key: key);
 
   @override
   _PlayersByNameState createState() => _PlayersByNameState();
@@ -16,7 +16,7 @@ class _PlayersByNameState extends State<PlayersByName> {
   @override
   void initState() {
     super.initState();
-    queryResponse = queryPlayersByName(widget.searchValues.join(", "));
+    queryResponse = queryPlayersByName(InfoBloc.getQueryFieldsStr());
   }
 
   @override

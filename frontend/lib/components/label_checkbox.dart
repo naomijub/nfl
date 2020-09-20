@@ -25,7 +25,7 @@ class LabelCheckbox extends StatelessWidget {
                 text: label,
                 style: TextStyle(
                   color: Colors.blueGrey,
-                  fontSize: 14,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
                 recognizer: null,

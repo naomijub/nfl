@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:frontend/bloc/info_bloc.dart';
 import 'package:http/http.dart' as http;
 
-Future<String> queryNflRushing() async {
+Future<String> queryPlayersByName(String queryParameters) async {
   final response = await http.post(InfoBloc.uri,
       headers: {
         'Accept': '*/*',
@@ -12,7 +12,7 @@ Future<String> queryNflRushing() async {
       },
       body: jsonEncode({
         'query':
-            'query { playersByName(perPage: ${InfoBloc.perPage}, page: ${InfoBloc.page}, pattern: "${InfoBloc.name}" ) { name }}'
+            'query { playersByName(perPage: ${InfoBloc.perPage}, page: ${InfoBloc.page}, pattern: "${InfoBloc.name}" ) { $queryParameters }}'
       }));
   return response.body;
 }

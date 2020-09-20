@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:frontend/Screens/players_by_name.dart';
+import 'package:frontend/Screens/select_fields.dart';
 import 'package:frontend/bloc/info_bloc.dart';
 
 import 'nfl_scaffold.dart';
@@ -16,7 +16,6 @@ class _InputAppState extends State<InputApp> {
   final TextEditingController _perPageController = TextEditingController();
   final TextEditingController _pageController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-  bool isSearch = false;
 
   Widget build(BuildContext context) {
     return NflScaffold(
@@ -26,6 +25,7 @@ class _InputAppState extends State<InputApp> {
         child: ListView(
           children: [
             TextField(
+              key: Key('perPage'),
               controller: _perPageController,
               keyboardType: TextInputType.number,
               inputFormatters: <TextInputFormatter>[
@@ -39,6 +39,7 @@ class _InputAppState extends State<InputApp> {
               ),
             ),
             TextField(
+              key: Key('page'),
               controller: _pageController,
               keyboardType: TextInputType.number,
               inputFormatters: <TextInputFormatter>[
@@ -52,6 +53,7 @@ class _InputAppState extends State<InputApp> {
               ),
             ),
             TextField(
+              key: Key('name'),
               controller: _nameController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
@@ -66,26 +68,28 @@ class _InputAppState extends State<InputApp> {
               child: SizedBox(
                 width: double.maxFinite,
                 child: RaisedButton(
+                  key: Key('proceed'),
                   disabledColor: Colors.grey,
                   textColor: Colors.white,
                   color: Colors.blue,
-                  child: isSearch ? Text('Search') : Text('Proceed'),
+                  child: Text('Proceed'),
                   onPressed: () {
-                    isSearch = _nameController.text.isEmpty;
                     final String name = _nameController.text;
                     final int page = int.parse(_pageController.text);
                     final int perPage = int.parse(_perPageController.text);
 
+                    print(name);
                     if (name.isEmpty) {
                       InfoBloc.pageInfo(perPage, page);
                     } else {
                       InfoBloc.pageInfoWithName(perPage, page, name);
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => PlayersByName(),
-                        ),
-                      );
                     }
+
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => SelectFields(),
+                      ),
+                    );
                   },
                 ),
               ),

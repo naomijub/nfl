@@ -3,7 +3,8 @@ import 'package:frontend/Views/nfl_scaffold.dart';
 import 'package:frontend/repository/http.dart';
 
 class PlayersByName extends StatefulWidget {
-  PlayersByName({Key key}) : super(key: key);
+  PlayersByName({Key key, this.searchValues}) : super(key: key);
+  final List<String> searchValues;
 
   @override
   _PlayersByNameState createState() => _PlayersByNameState();
@@ -15,7 +16,7 @@ class _PlayersByNameState extends State<PlayersByName> {
   @override
   void initState() {
     super.initState();
-    queryResponse = queryNflRushing();
+    queryResponse = queryPlayersByName(widget.searchValues.join(", "));
   }
 
   @override

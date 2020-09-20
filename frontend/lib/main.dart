@@ -10,7 +10,7 @@ void main() {
 class NflApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final InfoBloc _infoBlocl = InfoBloc();
+    final InfoBloc _ = InfoBloc();
     return MaterialApp(
       title: 'NFL',
       theme: ThemeData(

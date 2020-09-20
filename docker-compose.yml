@@ -6,4 +6,19 @@ services:
       dockerfile: Dockerfile
     command: cargo run --release
     ports:
-      - 4000:4000
+      - "4000:4000"
+
+  frontend:
+    restart: always
+    image: flutter-web-test
+    ports:
+      - "5001:5001"
+    build:
+      context: ./frontend
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: ["flutter", "run", "--release", "--web-hostname=0.0.0.0", "--web-port=5001"]
+    links:
+      - backend
+    depends_on:
+      - backend

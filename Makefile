@@ -4,5 +4,8 @@ test:
 run:
 	docker-compose up --build
 
+quick-run:
+	docker-compose up
+
 down:
 	docker-compose down

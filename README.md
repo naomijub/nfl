@@ -36,6 +36,7 @@ In this repo is a sample data file [`rushing.json`](/rushing.json).
 
 ## Conderations
 * For sorting `Longest Rush`, I considered a touchdown a bonus of 100 points.
+* Did not use flutter graphql client due to configuration time.
 
 ### Tests
 To run tests just execute `cargo test`.

@@ -8,6 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend/Screens/select_fields.dart';
+import 'package:frontend/Screens/sort_players.dart';
 
 import 'package:frontend/main.dart';
 
@@ -28,6 +29,24 @@ void main() {
     expect(find.byKey(Key('proceed')), findsNothing);
 
     await tester.press(find.byKey(Key('checkbox')).first);
+    await tester.pumpAndSettle();
+  });
+
+  testWidgets('sort fields', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: SortPlayers()));
+
+    expect(find.byKey(Key('None')), findsOneWidget);
+    expect(find.text('No Sorting'), findsOneWidget);
+    expect(find.byKey(Key('LR')), findsOneWidget);
+    expect(find.text('Longest Rush'), findsOneWidget);
+
+    expect(find.byKey(Key('asc')), findsOneWidget);
+    expect(find.text('Asc Order'), findsOneWidget);
+
+    await tester.press(find.byKey(Key('desc')).first);
+    await tester.pumpAndSettle();
+
+    await tester.press(find.byKey(Key('TRT')).first);
     await tester.pumpAndSettle();
   });
 }

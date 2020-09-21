@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/Views/nfl_scaffold.dart';
 import 'package:frontend/Views/players_table.dart';
 import 'package:frontend/bloc/info_bloc.dart';
+import 'package:frontend/repository/csv.dart';
 import 'package:frontend/repository/http.dart';
 
 class PlayersByName extends StatefulWidget {
@@ -13,6 +14,7 @@ class PlayersByName extends StatefulWidget {
 
 class _PlayersByNameState extends State<PlayersByName> {
   Future<Map<String, Map<String, List<Map<String, dynamic>>>>> queryResponse;
+  List<Map<String, dynamic>> info = List();
 
   @override
   void initState() {
@@ -28,15 +30,25 @@ class _PlayersByNameState extends State<PlayersByName> {
         child: Container(
           child: NflScaffold(
             title: 'Players by Name',
+            button: FloatingActionButton(
+              child: Icon(
+                Icons.cloud_download,
+              ),
+              onPressed: () {
+                getCsv('playersByName', info);
+              },
+            ),
             body: FutureBuilder<
                 Map<String, Map<String, List<Map<String, dynamic>>>>>(
               future: queryResponse,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  info = snapshot.data['data']['playersByName'];
                   return Container(
                     padding: EdgeInsets.only(top: 16),
                     child: PlayersTable(
-                        values: snapshot.data['data']['playersByName']),
+                      values: info,
+                    ),
                   );
                 } else if (snapshot.connectionState ==
                     ConnectionState.waiting) {

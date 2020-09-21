@@ -34,9 +34,20 @@ In this repo is a sample data file [`rushing.json`](/rushing.json).
 
 ## Installation and running this solution
 
-## Conderations
+To start the project is necessary to have `make` available and `docker-compose`, this way the project can be executed with `make run`, else `docker-compose up` can do the trick.
+1. Open your browser at `http://localhost:5001`.
+2. First screen allows you to select `perPage` and `page` required attributes, as well as optional `name` to search.
+3. Second screen allows you to select all fields you wish to see in the report.
+4. Third screen, if `name` was not inserted, will allow you to select a sorting method.
+5. Forth screen is the Table report.
+6. To download CSV you should click in the blue button at the bottom right.
+
+## Considerations
 * For sorting `Longest Rush`, I considered a touchdown a bonus of 100 points.
-* Did not use flutter graphql client due to configuration time.
+* Did not use flutter graphql client due to configuration time. Same for flutter web specific tests.
+* I did not focus on pretty frontends, just functionality.
+* Backed was developed in Rust with Actix for web server and Juniper for GraphQL support. The project is divided in `main`, where the server is started and files loaded, `reader` IO related module, `model` is the module responsible for `Player` and `Errors`, and `web` is the module containing GraphQL queries and routes configuration.
+* Frontend is a little more complex. It starts with `main` that runs the `App`, that it call `Screens` where all screens are located, `Views` is where shared `Screen` parts, like scaffold, are located, common components are stored in `components`, `bloc` is a where the app data is being stored, and `repository` is where `http` and `csv` functions are stored.
 
 ### Tests
 To run tests just execute `cargo test`.

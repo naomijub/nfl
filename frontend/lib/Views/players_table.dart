@@ -7,20 +7,24 @@ class PlayersTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Table(
-        border: TableBorder.all(),
-        children: List.from([
-          TableRow(
-            children: InfoBloc.queryFields
-                .map((e) => Text(
-                      e,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 18),
-                    ))
-                .toList(),
-          )
-        ])
-          ..addAll(rows()));
+    return ListView(
+      children: [
+        Table(
+            border: TableBorder.all(),
+            children: List.from([
+              TableRow(
+                children: InfoBloc.queryFields
+                    .map((e) => Text(
+                          e,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 18),
+                        ))
+                    .toList(),
+              )
+            ])
+              ..addAll(rows())),
+      ],
+    );
   }
 
   List<TableRow> rows() {

@@ -103,6 +103,53 @@ impl QueryRoot {
         }
         Ok(players)
     }
+
+    fn sortByName(
+        context: &Context,
+        per_page: i32,
+        page: i32,
+        pattern: String,
+        sort_by: Sorting,
+        order: Order,
+    ) -> Result<Vec<Player>, Error> {
+        let mut players = context
+            .0
+            .iter()
+            .filter(|p| p.name.starts_with(&pattern))
+            .skip((per_page * page) as usize)
+            .take(per_page as usize)
+            .map(|p| p.to_owned())
+            .collect::<Vec<Player>>();
+        match (order, sort_by) {
+            (Order::Asc, Sorting::TotalRushingYards) => players.sort_by(|a, b| {
+                a.total_rushing_yards
+                    .partial_cmp(&b.total_rushing_yards)
+                    .unwrap()
+            }),
+            (Order::Asc, Sorting::LongestRush) => {
+                players.sort_by(|a, b| a.longest_rush().partial_cmp(&b.longest_rush()).unwrap())
+            }
+            (Order::Asc, Sorting::TotalRushingTouchdowns) => players.sort_by(|a, b| {
+                a.total_rushing_touchdowns
+                    .partial_cmp(&b.total_rushing_touchdowns)
+                    .unwrap()
+            }),
+            (Order::Desc, Sorting::TotalRushingYards) => players.sort_by(|b, a| {
+                a.total_rushing_yards
+                    .partial_cmp(&b.total_rushing_yards)
+                    .unwrap()
+            }),
+            (Order::Desc, Sorting::LongestRush) => {
+                players.sort_by(|b, a| a.longest_rush().partial_cmp(&b.longest_rush()).unwrap())
+            }
+            (Order::Desc, Sorting::TotalRushingTouchdowns) => players.sort_by(|b, a| {
+                a.total_rushing_touchdowns
+                    .partial_cmp(&b.total_rushing_touchdowns)
+                    .unwrap()
+            }),
+        }
+        Ok(players)
+    }
 }
 
 pub struct MutationRoot;

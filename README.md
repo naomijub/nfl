@@ -48,6 +48,7 @@ To start the project is necessary to have `make` available and `docker-compose`,
 * I did not focus on pretty frontends, just functionality.
 * Backed was developed in Rust with Actix for web server and Juniper for GraphQL support. The project is divided in `main`, where the server is started and files loaded, `reader` IO related module, `model` is the module responsible for `Player` and `Errors`, and `web` is the module containing GraphQL queries and routes configuration.
 * Frontend is a little more complex. It starts with `main` that runs the `App`, that it call `Screens` where all screens are located, `Views` is where shared `Screen` parts, like scaffold, are located, common components are stored in `components`, `bloc` is a where the app data is being stored, and `repository` is where `http` and `csv` functions are stored.
+* Due to disponibility reasons, query `sortByName` doesn't have its own frontend.
 
 ### Tests
 To run tests just execute `cargo test`.

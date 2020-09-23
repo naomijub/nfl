@@ -107,6 +107,21 @@ async fn test_players_sorted_td() {
     assert_eq!(resp, Bytes::from_static(response_players_sorted_td()));
 }
 
+#[actix_rt::test]
+async fn test_sort_player_by_name() {
+    let container = test_data();
+    let mut app = test::init_service(App::new().data(container.clone()).configure(routes)).await;
+
+    let req = test::TestRequest::post()
+        .uri("/graphql")
+        .header("Content-Type", "application/json")
+        .set_payload(query_sort_td_by_name())
+        .to_request();
+    let resp = test::read_response(&mut app, req).await;
+
+    assert_eq!(resp, Bytes::from_static(response_sort_players_name()));
+}
+
 use nfl_rushing::reader::read_json;
 use nfl_rushing::web::{graphql_resolvers::create_resolver, Container};
 use std::sync::Arc;
@@ -164,4 +179,12 @@ fn query_players_sorted_td() -> &'static str {
 
 fn response_players_sorted_td() -> &'static [u8; 182] {
     b"{\"data\":{\"sortPlayers\":[{\"name\":\"Tyrod Taylor\",\"totalRushingTouchdowns\":6},{\"name\":\"Antonio Brown\",\"totalRushingTouchdowns\":0},{\"name\":\"Javorius Allen\",\"totalRushingTouchdowns\":0}]}}"
+}
+
+fn query_sort_td_by_name() -> &'static str {
+    "{\"query\": \"query {sortByName(perPage: 3, page: 0,  pattern: \\\"A\\\", sortBy: TOTAL_RUSHING_TOUCHDOWNS, order: DESC) { name, totalRushingTouchdowns}}\"}"
+}
+
+fn response_sort_players_name() -> &'static [u8;185] {
+    b"{\"data\":{\"sortByName\":[{\"name\":\"Aaron Ripkowski\",\"totalRushingTouchdowns\":2},{\"name\":\"Antonio Brown\",\"totalRushingTouchdowns\":0},{\"name\":\"Adrian Peterson\",\"totalRushingTouchdowns\":0}]}}"
 }

@@ -1,3 +1,4 @@
+use crate::logic::{list_all_players, players_by_name, sort_by_name, sort_players};
 use crate::model::{error::Error, json::Player};
 use juniper::FieldResult;
 use juniper::RootNode;
@@ -13,14 +14,14 @@ impl Context {
 impl juniper::Context for Context {}
 
 #[derive(juniper::GraphQLEnum)]
-enum Sorting {
+pub enum Sorting {
     TotalRushingYards,
     LongestRush,
     TotalRushingTouchdowns,
 }
 
 #[derive(juniper::GraphQLEnum)]
-enum Order {
+pub enum Order {
     Asc,
     Desc,
 }
@@ -34,13 +35,8 @@ impl QueryRoot {
     }
 
     fn listPlayers(context: &Context, per_page: i32, page: i32) -> Result<Vec<Player>, Error> {
-        let players = context
-            .0
-            .iter()
-            .skip((per_page * page) as usize)
-            .take(per_page as usize)
-            .map(|p| p.to_owned());
-        Ok(players.collect::<Vec<Player>>())
+        let players = context.0.to_vec();
+        Ok(list_all_players(players, per_page, page))
     }
 
     fn playersByName(
@@ -49,14 +45,8 @@ impl QueryRoot {
         page: i32,
         pattern: String,
     ) -> Result<Vec<Player>, Error> {
-        let players = context
-            .0
-            .iter()
-            .filter(|p| p.name.starts_with(&pattern))
-            .skip((per_page * page) as usize)
-            .take(per_page as usize)
-            .map(|p| p.to_owned());
-        Ok(players.collect::<Vec<Player>>())
+        let players = context.0.to_vec();
+        Ok(players_by_name(players, per_page, page, pattern))
     }
 
     fn sortPlayers(
@@ -66,42 +56,8 @@ impl QueryRoot {
         sort_by: Sorting,
         order: Order,
     ) -> Result<Vec<Player>, Error> {
-        let mut players = context
-            .0
-            .iter()
-            .skip((per_page * page) as usize)
-            .take(per_page as usize)
-            .map(|p| p.to_owned())
-            .collect::<Vec<Player>>();
-        match (order, sort_by) {
-            (Order::Asc, Sorting::TotalRushingYards) => players.sort_by(|a, b| {
-                a.total_rushing_yards
-                    .partial_cmp(&b.total_rushing_yards)
-                    .unwrap()
-            }),
-            (Order::Asc, Sorting::LongestRush) => {
-                players.sort_by(|a, b| a.longest_rush().partial_cmp(&b.longest_rush()).unwrap())
-            }
-            (Order::Asc, Sorting::TotalRushingTouchdowns) => players.sort_by(|a, b| {
-                a.total_rushing_touchdowns
-                    .partial_cmp(&b.total_rushing_touchdowns)
-                    .unwrap()
-            }),
-            (Order::Desc, Sorting::TotalRushingYards) => players.sort_by(|b, a| {
-                a.total_rushing_yards
-                    .partial_cmp(&b.total_rushing_yards)
-                    .unwrap()
-            }),
-            (Order::Desc, Sorting::LongestRush) => {
-                players.sort_by(|b, a| a.longest_rush().partial_cmp(&b.longest_rush()).unwrap())
-            }
-            (Order::Desc, Sorting::TotalRushingTouchdowns) => players.sort_by(|b, a| {
-                a.total_rushing_touchdowns
-                    .partial_cmp(&b.total_rushing_touchdowns)
-                    .unwrap()
-            }),
-        }
-        Ok(players)
+        let players = context.0.to_vec();
+        sort_players(players, per_page, page, sort_by, order)
     }
 
     fn sortByName(
@@ -112,43 +68,8 @@ impl QueryRoot {
         sort_by: Sorting,
         order: Order,
     ) -> Result<Vec<Player>, Error> {
-        let mut players = context
-            .0
-            .iter()
-            .filter(|p| p.name.starts_with(&pattern))
-            .skip((per_page * page) as usize)
-            .take(per_page as usize)
-            .map(|p| p.to_owned())
-            .collect::<Vec<Player>>();
-        match (order, sort_by) {
-            (Order::Asc, Sorting::TotalRushingYards) => players.sort_by(|a, b| {
-                a.total_rushing_yards
-                    .partial_cmp(&b.total_rushing_yards)
-                    .unwrap()
-            }),
-            (Order::Asc, Sorting::LongestRush) => {
-                players.sort_by(|a, b| a.longest_rush().partial_cmp(&b.longest_rush()).unwrap())
-            }
-            (Order::Asc, Sorting::TotalRushingTouchdowns) => players.sort_by(|a, b| {
-                a.total_rushing_touchdowns
-                    .partial_cmp(&b.total_rushing_touchdowns)
-                    .unwrap()
-            }),
-            (Order::Desc, Sorting::TotalRushingYards) => players.sort_by(|b, a| {
-                a.total_rushing_yards
-                    .partial_cmp(&b.total_rushing_yards)
-                    .unwrap()
-            }),
-            (Order::Desc, Sorting::LongestRush) => {
-                players.sort_by(|b, a| a.longest_rush().partial_cmp(&b.longest_rush()).unwrap())
-            }
-            (Order::Desc, Sorting::TotalRushingTouchdowns) => players.sort_by(|b, a| {
-                a.total_rushing_touchdowns
-                    .partial_cmp(&b.total_rushing_touchdowns)
-                    .unwrap()
-            }),
-        }
-        Ok(players)
+        let players = context.0.to_vec();
+        sort_by_name(players, per_page, page, pattern, sort_by, order)
     }
 }
 

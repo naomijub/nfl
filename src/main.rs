@@ -1,3 +1,4 @@
+mod logic;
 mod model;
 mod reader;
 mod web;

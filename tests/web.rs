@@ -185,6 +185,6 @@ fn query_sort_td_by_name() -> &'static str {
     "{\"query\": \"query {sortByName(perPage: 3, page: 0,  pattern: \\\"A\\\", sortBy: TOTAL_RUSHING_TOUCHDOWNS, order: DESC) { name, totalRushingTouchdowns}}\"}"
 }
 
-fn response_sort_players_name() -> &'static [u8;185] {
+fn response_sort_players_name() -> &'static [u8; 185] {
     b"{\"data\":{\"sortByName\":[{\"name\":\"Aaron Ripkowski\",\"totalRushingTouchdowns\":2},{\"name\":\"Antonio Brown\",\"totalRushingTouchdowns\":0},{\"name\":\"Adrian Peterson\",\"totalRushingTouchdowns\":0}]}}"
 }
